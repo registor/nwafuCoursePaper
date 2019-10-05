@@ -15,13 +15,12 @@ Happy LaTeXing!~
 
 - 方便科技类或IT类课程论文排版；
 - 定制摘要、各级节标题、表格、页眉页脚等样式；
-- 定义 primary、secondary、success、danger、info、warning、light和dark等颜色样式；
-- 定义 JavaScript/ES6, TypeScript, golang 等`listings`未定议的语言样式；
-- 定义 shell 命令及输出展示环境：`shellbox` 和 `invertedshellbox`；
-- 使用`tcolorbox`新建noteBox、importantBox、tipBox和warningBox 本文框，用于展示“注意”、“重要”、“技巧”和“警告”信息。
+- 定义`primary`、`secondary`、`success`、`danger`、`info`、`warning`、`light`和`dark`等颜色样式；
+- 定义`JavaScript/ES6`, `TypeScript`, `golang`等`listings`未定议的语言样式；
+- 定义`shell`命令及输出展示环境：`shellbox`和`invertedshellbox`；
+- 使用`tcolorbox`新建`noteBox`、`importantBox`、`tipBox`和`warningBox`本文框，以展示“注意”、“重要”、“技巧”和“警告”信息。
 
 ## 反馈
-
 如果发现代码有问题，请按照以下步骤操作：
 
 1. 将 TeX 发行版和宏包升级到最新，并且将模板升级到 Github 上最新版本，查看问题是否已经修复；
