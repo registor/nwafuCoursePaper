@@ -1,0 +1,58 @@
+% 重定义强调字体的代码，解决默认强调字体是italic，此时中文会用楷体代替，
+% 在此设置为加粗，注意需要使用etoolbox宏包
+\makeatletter
+\let\origemph\emph
+\newcommand*\emphfont{\normalfont\bfseries}
+\DeclareTextFontCommand\@textemph{\emphfont}
+\newcommand\textem[1]{%
+  \ifdefstrequal{\f@series}{\bfdefault}
+    {\@textemph{\CTEXunderline{#1}}}
+    {\@textemph{#1}}%
+}
+\RenewDocumentCommand\emph{s o m}{%
+  \IfBooleanTF{#1}
+    {\textem{#3}}
+    {\IfNoValueTF{#2}
+      {\textem{#3}\index{#3}}
+      {\textem{#3}\index{#2}}%
+     }%
+}
+\makeatother   
+
+% ====================================================================================
+% 西北农林科技大学各单位名称
+% ====================================================================================
+\newcommand{\nwafu}{西北农林科技大学}
+\newcommand{\cie}{信息工程学院}
+
+% ====================================================================================
+% 专用名词
+% ====================================================================================
+\newcommand{\teacharch}{教学档案}
+\newcommand{\awardtitle}{\nwafu{}\teacharch{}系列\LaTeX{}}
+\newcommand{\awardname}{\awardtitle{}模板的研发与推广}
+\newcommand{\architems}{学位论文、试题试卷、演示文稿、教案、点名册}
+\newcommand{\ltxcourse}{《\LaTeX{}排版技术》公共选修课}
+\newcommand{\git}{分布式版本控制系统Git}
+\newcommand{\github}{Github平台}
+
+% ====================================================================================
+% cquotes宏包的中文引号样式
+% ====================================================================================
+\DeclareQuoteStyle{zhquotestyle}% style name
+    {\symbol{"201C}}% opening outer mark
+    {\symbol{"201D}}% closing outer mark
+    {\symbol{"2018}}% opening inner mark
+    {\symbol{"2019}}% closing inner mark
+
+\setquotestyle{zhquotestyle}
+
+% ====================================================================================
+% 改变表格字体
+% ====================================================================================
+\BeforeBeginEnvironment{tabular}{\small}%
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master:"../main.tex"
+%%% End:
