@@ -1,12 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{boxie}[2019/05/30 v1.1, GENG Nan nangeng@qq.com with contributions ZHANG Chennan chennanzhang@gmail.com.]
-%--------------------------------------------------------------------------------
-% 使用fontawesome5符号字体
-% \RequirePackage{fontawesome}之前的两句是必须的，否则用ubuntu下用xelatex编译会出错。
-%--------------------------------------------------------------------------------
-%\RequirePackage{fontspec}
-%\defaultfontfeatures{Extension = .otf}
-%\RequirePackage{fontawesome}
+\ProvidesPackage{boxie}[2019/10/05 v2.1, GENG Nan nangeng@qq.com]
 %--------------------------------------------------------------------------------
 % 使用fontawesome5符号字体，可以直接使用
 %--------------------------------------------------------------------------------
@@ -46,34 +39,29 @@
 \definecolor{WinGray}{HTML}{FFFFFF}
 \definecolor{WinBlue}{HTML}{1883D7}
 
-%------------------------------------------------------------------------------------
-% 中文字号设置
-%------------------------------------------------------------------------------------
-\makeatletter
-\def\thu@def@fontsize#1#2{%
-        \expandafter\newcommand\csname #1\endcsname[1][1.3]{%
-                \fontsize{#2}{##1\dimexpr #2}\selectfont%
-        }%
-}%
-\thu@def@fontsize{chuhao}{42bp}%
-\thu@def@fontsize{xiaochu}{36bp}%
-\thu@def@fontsize{yihao}{26bp}%
-\thu@def@fontsize{xiaoyi}{24bp}%
-\thu@def@fontsize{erhao}{22bp}%
-\thu@def@fontsize{xiaoer}{18bp}%
-\thu@def@fontsize{sanhao}{16bp}%
-\thu@def@fontsize{xiaosan}{15bp}%
-\thu@def@fontsize{sihao}{14bp}%
-\thu@def@fontsize{banxiaosi}{13bp}%
-\thu@def@fontsize{xiaosi}{12bp}%
-\thu@def@fontsize{dawu}{11bp}%
-\thu@def@fontsize{wuhao}{10.5bp}%
-\thu@def@fontsize{xiaowu}{9bp}%
-\thu@def@fontsize{liuhao}{7.5bp}%
-\thu@def@fontsize{xiaoliu}{6.5bp}%
-\thu@def@fontsize{qihao}{5.5bp}%
-\thu@def@fontsize{bahao}{5bp}%
-\makeatother%
+% success
+\definecolor{colorSuccess}{HTML}{28a745}
+\definecolor{colorSuccessBorder}{HTML}{c3e6cb}
+\definecolor{colorSuccessBackground}{HTML}{d4edda}
+\definecolor{colorSuccessText}{HTML}{155724}
+
+% info
+\definecolor{colorInfo}{HTML}{17a2b8}
+\definecolor{colorInfoBorder}{HTML}{bee5eb}
+\definecolor{colorInfoBackground}{HTML}{d1ecf1}
+\definecolor{colorInfoText}{HTML}{0c5460}
+
+% danger
+\definecolor{colorDanger}{HTML}{dc3545}
+\definecolor{colorDangerBorder}{HTML}{f5c6cb}
+\definecolor{colorDangerBackground}{HTML}{f8d7da}
+\definecolor{colorDangerText}{HTML}{721c24}
+
+% warning
+\definecolor{colorWarning}{HTML}{ffc107}
+\definecolor{colorWarningBorder}{HTML}{ffeeba}
+\definecolor{colorWarningBackground}{HTML}{fff3cd}
+\definecolor{colorWarningText}{HTML}{856404}
 
 %------------------------------------------------------------------------------------
 % Ubuntu终端盒子的最小化、关闭和最大化图标
@@ -360,9 +348,101 @@
   }
 }% end tcolorbox lang style
 
+%------------------------------------------------------------------------------------
+% 定义文本框盒子
+%------------------------------------------------------------------------------------
+%% 带标题的文本框
+\newtcolorbox{titledBox}[1]{%
+  tikznode boxed title,
+  enhanced,
+  arc=3pt,
+  interior style={white},
+  attach boxed title to top center = {yshift=-\tcboxedtitleheight/2},
+  fonttitle=\normalfont,
+  colbacktitle=white,coltitle=black,
+  boxed title style={size=normal,colframe=white,boxrule=0pt},
+  boxrule=.5pt,
+  left=5pt, right=5pt, top=5pt, bottom=0pt,
+  boxsep=5pt,
+  title={#1},
+  halign=left,
+  fontupper=\kaishu
+}
+
+
+%% Note
+\newtcolorbox{noteBox}{%
+  enhanced,
+  arc=2pt,
+  boxrule=.5pt,
+  left=5pt, right=5pt, top=0pt, bottom=0pt,
+  boxsep=5pt,
+  colframe=colorInfoBorder,
+  colback=colorInfoBackground,
+  colbacktitle=colorInfoBackground,
+  coltext=colorInfoText,
+  title={\textcolor{colorInfoText}{\faStickyNoteO\hspace{.5em}\bfseries{\textsc{Note}}}},
+  titlerule=0pt,
+  halign=left,
+  fontupper=\kaishu
+}
+
+%% Important
+\newtcolorbox{importantBox}{%
+  enhanced,
+  arc=2pt,
+  boxrule=.5pt,
+  left=5pt, right=5pt, top=0pt, bottom=0pt,
+  boxsep=5pt,
+  colframe=colorWarningBorder,
+  colback=colorWarningBackground,
+  colbacktitle=colorWarningBackground,
+  coltext=colorWarningText,
+  title={\textcolor{colorWarningText}{\faExclamationCircle\hspace{.5em}\bfseries{\textsc{Important}}}},
+  titlerule=0pt,
+  halign=left,
+  fontupper=\kaishu
+}
+
+%% Tip
+\newtcolorbox{tipBox}{%
+  enhanced,
+  arc=2pt,
+  boxrule=.5pt,
+  left=5pt, right=5pt, top=0pt, bottom=0pt,
+  boxsep=5pt,
+  colframe=colorSuccessBorder,
+  colback=colorSuccessBackground,
+  colbacktitle=colorSuccessBackground,
+  coltext=colorSuccessText,
+  title={\textcolor{colorSuccessText}{\faCheckCircle\hspace{.5em}\bfseries{\textsc{Tip}}}},
+  titlerule=0pt,
+  halign=left,
+  fontupper=\kaishu
+}
+
+%% Warning
+\newtcolorbox{warningBox}{%
+  enhanced,
+  arc=2pt,
+  boxrule=.5pt,
+  left=5pt, right=5pt, top=0pt, bottom=0pt,
+  boxsep=5pt,
+  colframe=colorDangerBorder,
+  colback=colorDangerBackground,
+  colbacktitle=colorDangerBackground,
+  coltext=colorDangerText,
+  title={\textcolor{colorDangerText}{\faExclamationTriangle\hspace{.5em}\bfseries{\textsc{Warning}}}},
+  titlerule=0pt,
+  halign=left,
+  fontupper=\kaishu
+}
+
 %------ 这段代码借用林前辈的, --shell-escape 时调用 minted 不然就用 listings-----------
-\ifnum\shellescape=1
-  \tcbuselibrary{minted}% 用minted排版代码
+\ifnum\shellescape=1  
+  \tcbuselibrary{minted}% 用minted排版代码  
+  \PassOptionsToClass{newfloat}{minted}
+
 %------------------------------------------------------------------------------------
 % minted part
 %------------------------------------------------------------------------------------

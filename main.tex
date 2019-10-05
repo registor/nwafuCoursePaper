@@ -5,23 +5,55 @@
 \input{settings/packages.tex}
 % 进行必要的设置
 \input{settings/format.tex}
+% 乱数假文宏包
+\usepackage{zhlipsum}
 
 \title{\bfseries\sffamily 数据类型错误引起的死循环问题}
 \author{\zihao{4} \fangsong 耿楠\\\small \songti 信息
   工程学院，陕西$\cdot$杨凌，712100}
 \date{\today}
 
-\begin{document} %在document环境中撰写文档
+% 摘要内容
+\begin{abstract}
+  本文针对C语言程序设计中，在计算浮点数时，由于未正确声明保存结果的变
+  量的数据类型，从而引起了截断误差，造成循环陷入\enquote{死循环}的问题。
+  采用DEBUG的方法，通过单步调试和跟踪程序，分析程序运行过程中的各个变
+  量的值的变化情况，定位了引起程序死循环错误代码。进一步，通过分析，确
+  定了修改程序的方案。实验表明，利用DEBUG调试程序是非常有必要的。
+\end{abstract}
+% 关键词内容(用英文","分割)
+\keywords{数据类型, 死循环, 截断误差, DEBUG}
 
+\begin{document} %在document环境中撰写文档
+% 排版标题
 \maketitle
 \thispagestyle{empty}
+% 排版摘要
+\makeabstract
 
-\begin{abstract}
-\noindent 只是样例填充的文字，内容都不相干的！Laravel 5.6 在 Laravel 5.5 的基础上继续进行优化，包括\textbf{日志系统}、\textit{单机任务调度}、\textbf{\textit{模型序列化优化}}、动态频率限制、广播频道类、API 资源控制器生成、Eloquent 日期格式化优化、Blade 组件别名、Argon2 密码哈希支持、引入 Collision 扩展包等等等等。此外，所有的前端脚手架代码都已升级到 Bootstrap 4，Laravel 底层使用的 Symfony 组件都已升级到 Symfony $\sim$4.0 版本。
-
-\vspace{2ex}
-\noindent \textbf{关键字：}LISP,\hspace{.5em}PHP,\hspace{.5em}学习环境
-\end{abstract}
+% 排版具体内容
+\section{引言}
+\subsection{目的和意义}
+\zhlipsum[2]
+\subsection{现状}
+\zhlipsum[3]
+\section{方法}
+\subsection{静态分析}
+\zhlipsum[4]
+\subsection{动态调试}
+\zhlipsum[5]
+\section{结果}
+\subsection{预测结果}
+\zhlipsum[6]
+\subsection{测试结果}
+\zhlipsum[7]
+\section{分析}
+\subsection{问题来源}
+\zhlipsum[8]
+\subsection{解决方案}
+\zhlipsum[9]
+\section{结论}
+\zhlipsum[10]
 \end{document}
 
 %%% Local Variables:

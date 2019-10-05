@@ -1,24 +1,3 @@
-% 重定义强调字体的代码，解决默认强调字体是italic，此时中文会用楷体代替，
-% 在此设置为加粗，注意需要使用etoolbox宏包
-\makeatletter
-\let\origemph\emph
-\newcommand*\emphfont{\normalfont\bfseries}
-\DeclareTextFontCommand\@textemph{\emphfont}
-\newcommand\textem[1]{%
-  \ifdefstrequal{\f@series}{\bfdefault}
-    {\@textemph{\CTEXunderline{#1}}}
-    {\@textemph{#1}}%
-}
-\RenewDocumentCommand\emph{s o m}{%
-  \IfBooleanTF{#1}
-    {\textem{#3}}
-    {\IfNoValueTF{#2}
-      {\textem{#3}\index{#3}}
-      {\textem{#3}\index{#2}}%
-     }%
-}
-\makeatother   
-
 % ====================================================================================
 % 西北农林科技大学各单位名称
 % ====================================================================================
