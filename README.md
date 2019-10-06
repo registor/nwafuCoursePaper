@@ -10,10 +10,12 @@ Happy LaTeXing!~
 2. **不支持** [CTeX 套装](http://www.ctex.org/CTeXDownload)。
 
 ##主要功能
-
 - 方便科技类或IT类课程论文排版；
-- 定制摘要、各级节标题、表格、页眉页脚等样式；
-- 使用`tcolorbox`新建`noteBox`、`importantBox`、`tipBox`和`warningBox`本文框，以展示“注意”、“重要”、“技巧”和“警告”信息。
+- 定制摘要、关键词、各级节标题、表格、页眉页脚等样式；
+- 使用自己开发的[boxie.sty宏包](https://github.com/registor/boxiesty)实现终端窗口模拟、各类代码文本框和“注意”、“重要”、“技巧”和“警告”等文本框；
+- 使用自己开发的[tikz-flowchart.sty宏包](https://github.com/registor/tikz-flowchart)实现流程图的绘制；
+- 使用改造于`tikz-imagelabels`宏包的`tikz-imglabels`宏包实现插图的注解；
+- 使用`floatrow`宏包控制图表浮动体；
 
 ## 反馈
 如果发现代码有问题，请按照以下步骤操作：
