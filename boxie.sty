@@ -1,5 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{boxie}[2019/10/05 v2.1, GENG Nan nangeng@qq.com]
+\ProvidesPackage{boxie}[2018/08/25 v1.0, GENG Nan nangeng@qq.com with contributions ZHANG Chennan chennanzhang@gmail.com.]
+%--------------------------------------------------------------------------------
+% 使用fontawesome5符号字体
+% \RequirePackage{fontawesome}之前的两句是必须的，否则用ubuntu下用xelatex编译会出错。
+%--------------------------------------------------------------------------------
+%\RequirePackage{fontspec}
+%\defaultfontfeatures{Extension = .otf}
+%\RequirePackage{fontawesome}
 %--------------------------------------------------------------------------------
 % 使用fontawesome5符号字体，可以直接使用
 %--------------------------------------------------------------------------------
@@ -13,7 +20,6 @@
 \RequirePackage{amssymb}
 \RequirePackage{xcolor}%[dvipsnames]
 \usetikzlibrary{shapes.geometric}
-
 %------------------------------------------------------------------------------------
 % 定义颜色
 %------------------------------------------------------------------------------------
@@ -62,291 +68,6 @@
 \definecolor{colorWarningBorder}{HTML}{ffeeba}
 \definecolor{colorWarningBackground}{HTML}{fff3cd}
 \definecolor{colorWarningText}{HTML}{856404}
-
-%------------------------------------------------------------------------------------
-% Ubuntu终端盒子的最小化、关闭和最大化图标
-%------------------------------------------------------------------------------------
-\newcommand{\UbuntuMin}{%
-  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line width=0.15ex,scale=1]
-    \shade[shading=ball,left color=ogray,right color=ogray!50!white] (0,0) circle (0.5);
-    \draw[termimal](-0.3,0)--(0.3,0);
-  \end{tikzpicture}
-}
-\newcommand{\UbuntuClose}{%
-  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line width=0.15ex,scale=1]
-    \shade[shading=ball,left color=oorange,right color=oorange!70!white] (0,0) circle (0.5);
-    \draw[termimal](-0.25,-0.25)--(0.25,0.25);
-    \draw[termimal](-0.25,0.25)--(0.25,-0.25);
-  \end{tikzpicture}
-}
-\newcommand{\UbuntuMax}{%
-  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line width=0.15ex,scale=1]
-    \shade [shading=ball,left color=ogray,right color=ogray!50!white] (0,0) circle (0.5);
-    \draw[termimal](-0.25,-0.2)rectangle(0.25,0.2);
-  \end{tikzpicture}
-}
-
-\newcommand{\WindowsLogo}{%
-  \begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4},scale=0.5, every node/.style={scale=0.5}]
-    \node[square,draw,thick,fill=black,text=white] at (0, 0) (a) {\small \faTerminal};
-  \end{tikzpicture}
-}
-
-%------------------------------------------------------------------------------------
-% tcolorbox终端盒子apple、win10和Ubuntu样式定义
-%------------------------------------------------------------------------------------
-\tcbset{%
-  skin=enhanced,%
-  % apple terminal base style
-  apple/.style={%
-    halign title=center,%
-    skin=bicolor,%
-    boxrule=0.5mm,%
-    breakable,% 
-    frame style={%
-      draw=AppleGray,%
-      left color=AppleGray,%
-      right color=AppleGray%
-    },%
-    overlay unbroken = {%
-      \node[inner sep=0pt,anchor=north west,yshift=-4pt,xshift=10pt,text=white]
-      at (frame.north west) {\textcolor{AppleRed}{\faCircle}
-        \textcolor{AppleYellow}{\faCircle}
-        \textcolor{AppleGreen}{\faCircle}};
-    },%
-    overlay first = {%
-      \node[inner sep=0pt,anchor=north west,yshift=-4pt,xshift=10pt,text=white]
-      at (frame.north west) {\textcolor{AppleRed}{\faCircle}
-        \textcolor{AppleYellow}{\faCircle}
-        \textcolor{AppleGreen}{\faCircle}};
-    },%    
-    fonttitle=\sffamily,%\bfseries,%
-    fontupper=\small\sffamily,%
-    fontlower=\small\sffamily%
-  },
-  % apple terminal dark style
-  appledark/.style={%
-    apple,%    
-    colback=black,%
-    colupper=white,%
-    colbacktitle=AppleGray,%
-    colframe=AppleGray,%
-    coltitle=black%
-    %coltext=MyLightGray
-  },
-  % apple terminal light style
-  applelight/.style={%
-    apple,%    
-    colback=cvgrayc,%
-    colupper=black,%
-    colbacktitle=AppleGray,%
-    colframe=AppleGray,%
-    coltitle=black%
-  },%
-  % win10 terminal base style
-  win10/.style={%
-    skin=bicolor,%
-    boxrule=0.1mm,%
-    %toptitle=1ex,
-    sharp corners,
-    breakable,%    
-    colbacktitle=WinGray,%
-    colframe=WinGray,%
-    coltitle=black,%
-    fonttitle=\sffamily,%\bfseries,
-    fontupper=\small\sffamily,
-    fontlower=\small\sffamily,
-    frame style={%
-      draw=WinBlue,%
-      left color=WinBlue,%
-      right color=WinBlue%
-    },%
-    overlay unbroken = {%
-      \node[inner sep=0pt,anchor=north west,yshift=-3pt,xshift=1.2pt,text=black]
-      at (frame.north west){~\WindowsLogo};% \fbox{\faTerminal}     
-      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-8pt,text=black] at (frame.north
-      east){\rule{0.8em}{0.6pt}\quad$\square$\quad{\Large$\times$}};    
-    },%
-    overlay first = {%
-      \node[inner sep=0pt,anchor=north west,yshift=-3pt,xshift=1.0pt,text=black]
-      at (frame.north west){~\WindowsLogo};%\small ~\faWindows
-      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-8pt,text=black] at (frame.north
-      east){\rule{0.8em}{0.6pt}\quad$\square$\quad{\Large$\times$}};      
-    }%
-  },
-  % win10 terminal light style
-  win10light/.style={
-    win10,%
-    colback=white,%
-    colupper=black,%
-    %coltext=black%
-  },
-  % win10 terminal dark style
-  win10dark/.style={
-    win10,%
-    colback=black,%
-    colupper=white,%
-    %coltext=white%
-  },
-  % Ubuntu terminal styles
-  ubuntu/.style={%
-    halign title=center,%
-    skin=bicolor,%
-    boxrule=0.5mm,%
-    breakable,% 
-    overlay unbroken = {%
-      \node[inner sep=0pt,anchor=north
-      east,yshift=-3pt,xshift=-5pt,text=white] at (frame.north
-      east){\UbuntuMin\UbuntuMax\UbuntuClose};%      
-    },%
-    overlay first = {%
-      \node[inner sep=0pt,anchor=north
-      east,yshift=-3pt,xshift=-5pt,text=white] at (frame.north
-      east){\UbuntuMin\UbuntuMax\UbuntuClose};%      
-    },%    
-    fonttitle=\sffamily,%\bfseries,%
-    fontupper=\small\sffamily,%
-    fontlower=\small\sffamily%
-  },
-  % apple terminal dark style
-  udark/.style={%
-    ubuntu,%
-    frame style={%
-      draw=mgray,%
-      left color=mgray,%
-      right color=mgray%
-    },%
-    colback=mpurple,%
-    colupper=white,%
-    colbacktitle=mgray,%
-    colframe=mgray,%
-    coltitle=white%
-    %coltext=MyLightGray
-  },
-  % apple terminal light style
-  ulight/.style={%
-    ubuntu,%
-    frame style={%
-      draw=cvgrayb,%
-      left color=cvgrayb,%
-      right color=cvgrayb%
-    },%
-    colback=cvgrayc,%
-    colupper=black,%
-    colbacktitle=cvgrayb,%
-    colframe=cvgrayb,%
-    coltitle=black%
-  },%
-  %
-  % ubuntu terminal dark style  
-  gitexample/.style={%
-    halign title=center,%
-    skin=bicolor,%
-    boxrule=1mm,%
-    fonttitle=\bfseries,%
-    coltitle=black,%
-    frame style={%
-      draw=mgray,%
-      left color=mgray,%
-      right color=mgray%
-    },%
-    colback=mpurple,%
-    colupper=white,%
-    breakable,%
-    colframe=mgray,%
-    colbacktitle=mgray,%
-    overlay unbroken={%
-      \node[inner sep=0pt,anchor=north west,yshift=-5pt,xshift=10pt,text=white] at (frame.north west){\UbuntuClose~\UbuntuMin~\UbuntuMax};%
-    },
-    overlay first={%
-      \node[inner sep=0pt,anchor=north west,yshift=-5pt,xshift=10pt,text=white] at (frame.north west){\UbuntuClose~\UbuntuMin~\UbuntuMax};%
-    }%    
-  }%
-}% end terminal style
-
-%------------------------------------------------------------------------------------
-% tcolorbox lang代码样式定义
-%------------------------------------------------------------------------------------
-\tcbset{%
-  skin=enhanced,
-  pad after break=0mm,
-  lang/.style={%
-    breakable,%
-    drop shadow,%
-    colframe=blue!75!black,%
-    left=4.5mm,
-    enhanced,%
-    colframe=tcbcolback!60!black,%
-    colback=tcbcolback!30!white,%
-    colbacktitle=tcbcolback!5!yellow!10!white,%
-    fonttitle=\bfseries,%
-    coltitle=black,%
-    attach boxed title to top center={%
-      yshift=-0.25mm-\tcboxedtitleheight/2,%
-      yshifttext=2mm-\tcboxedtitleheight/2%
-    },%
-    attach boxed title to top left={%
-      xshift=1cm,%
-      yshift*=1mm-\tcboxedtitleheight%
-    },%
-    varwidth boxed title*=-3cm,%
-    boxed title style={%
-      frame code={%
-        \path[fill=tcbcolback!30!black]([yshift=-1mm,xshift=-1mm]frame.north
-        west)%
-        arc[start angle=0,end
-        angle=180,radius=1mm]([yshift=-1mm,xshift=1mm]frame.north
-        east)%
-        arc[start angle=180,end angle=0,radius=1mm];%
-        \path[left color=tcbcolback!60!black,right
-        color=tcbcolback!60!black,middle
-        color=tcbcolback!80!black]([xshift=-2mm]frame.north west)%
-        --([xshift=2mm]frame.north east)[rounded corners=1mm]%
-        --([xshift=1mm,yshift=-1mm]frame.north east)%
-        --(frame.south east)%
-        --(frame.south west)%
-        --([xshift=-1mm,yshift=-1mm]frame.north west)[sharp corners]%
-        --cycle;%
-      },%
-      interior engine=empty%
-    },%
-  }% 
-}% end tcolorbox lang style
-
-%------------------------------------------------------------------------------------
-% tcolorbox cv代码样式定义
-%------------------------------------------------------------------------------------
-\tcbset{
-  skin=enhanced,
-  cv/.style={
-    boxrule=0.4mm,
-    pad after break=-1.5ex,
-    breakable,
-    top=0mm,
-    boxsep=1mm,
-    drop shadow,
-    attach boxed title to top,
-    colframe=blue!75!black,
-    left=4.5mm,
-    right=0mm,
-    enhanced,
-    colframe=tcbcolback!60!black,
-    colback=white,
-    colbacktitle=cvgray,
-    fonttitle=\ttfamily,
-    coltitle=black,
-    overlay broken = {
-      \begin{tcbclipinterior}
-        \fill[cvblue] (frame.south west) rectangle ([xshift=5.9mm]frame.north west);
-      \end{tcbclipinterior}
-    },
-    underlay boxed title = {
-      \begin{tcbclipinterior}
-        \fill[cvblue] (frame.south west) rectangle ([xshift=5.9mm,yshift=0mm]frame.north west);
-      \end{tcbclipinterior}
-    }
-  }
-}% end tcolorbox lang style
 
 %------------------------------------------------------------------------------------
 % 定义文本框盒子
@@ -438,16 +159,305 @@
   fontupper=\kaishu
 }
 
-%------ 这段代码借用林前辈的, --shell-escape 时调用 minted 不然就用 listings-----------
-\ifnum\shellescape=1  
-  \tcbuselibrary{minted}% 用minted排版代码  
-  \PassOptionsToClass{newfloat}{minted}
+%------------------------------------------------------------------------------------
+% Ubuntu终端盒子的最小化、关闭和最大化图标
+%------------------------------------------------------------------------------------
+\newcommand{\UbuntuMin}{%
+  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line width=0.15ex,scale=1]
+    \shade[shading=ball,left color=ogray,right color=ogray!50!white] (0,0) circle (0.5);
+    \draw[termimal](-0.3,0)--(0.3,0);
+  \end{tikzpicture}
+}
+\newcommand{\UbuntuClose}{%
+  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line width=0.15ex,scale=1]
+    \shade[shading=ball,left color=oorange,right color=oorange!70!white] (0,0) circle (0.5);
+    \draw[termimal](-0.25,-0.25)--(0.25,0.25);
+    \draw[termimal](-0.25,0.25)--(0.25,-0.25);
+  \end{tikzpicture}
+}
+\newcommand{\UbuntuMax}{%
+  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line width=0.15ex,scale=1]
+    \shade [shading=ball,left color=ogray,right color=ogray!50!white] (0,0) circle (0.5);
+    \draw[termimal](-0.25,-0.2)rectangle(0.25,0.2);
+  \end{tikzpicture}
+}
 
+\newcommand{\WindowsLogo}{%
+  \begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4},scale=0.5, every node/.style={scale=0.5}]
+    \node[square,draw,thick,fill=black,text=white] at (0, 0) (a) {\small \faTerminal};
+  \end{tikzpicture}
+}
+
+%------------------------------------------------------------------------------------
+% tcolorbox终端盒子apple、win10和Ubuntu样式定义
+%------------------------------------------------------------------------------------
+\tcbset{%
+  skin=enhanced,%
+  % apple terminal base style
+  apple/.style={%
+    halign title=center,%
+    skin=bicolor,%
+    right=0pt,top=0pt,bottom=0pt,
+    left=0pt,
+    boxrule=0.5mm,%
+    breakable,%     
+    frame style={%
+      draw=AppleGray,%
+      left color=AppleGray,%
+      right color=AppleGray%
+    },%
+    overlay unbroken = {%
+      \node[inner sep=0pt,anchor=north west,yshift=-2pt,xshift=10pt,text=white]
+      at (frame.north west) {\textcolor{AppleRed}{\faCircle}
+        \textcolor{AppleYellow}{\faCircle}
+        \textcolor{AppleGreen}{\faCircle}};
+    },%
+    overlay first = {%
+      \node[inner sep=0pt,anchor=north west,yshift=-2pt,xshift=10pt,text=white]
+      at (frame.north west) {\textcolor{AppleRed}{\faCircle}
+        \textcolor{AppleYellow}{\faCircle}
+        \textcolor{AppleGreen}{\faCircle}};
+    },%    
+    fonttitle=\scriptsize \sffamily,%\bfseries,%
+    fontupper=\small\sffamily,%
+    fontlower=\small\sffamily%
+  },
+  % apple terminal dark style
+  appledark/.style={%
+    apple,%    
+    colback=black,%
+    colupper=white,%
+    colbacktitle=AppleGray,%
+    colframe=AppleGray,%
+    coltitle=black%
+    %coltext=MyLightGray
+  },
+  % apple terminal light style
+  applelight/.style={%
+    apple,%    
+    colback=cvgrayc,%
+    colupper=black,%
+    colbacktitle=AppleGray,%
+    colframe=AppleGray,%
+    coltitle=black%
+  },%
+  % win10 terminal base style
+  win10/.style={%
+    skin=bicolor,%
+    right=0pt,top=0pt,bottom=0pt,
+    left=0pt,
+    boxrule=0.1mm,%
+    %toptitle=1ex,
+    sharp corners,
+    breakable,%    
+    colbacktitle=WinGray,%
+    colframe=WinGray,%
+    coltitle=black,%
+    fonttitle=\hspace{15pt}\scriptsize \sffamily,%\bfseries,
+    fontupper=\small\sffamily,
+    fontlower=\small\sffamily,
+    frame style={%
+      draw=WinBlue,%
+      left color=WinBlue,%
+      right color=WinBlue,%
+      %right = 10pt,
+    },%
+    overlay unbroken = {%
+      \node[inner sep=0pt,anchor=north west,yshift=-2pt,xshift=1.2pt,text=black]
+      at (frame.north west){~\WindowsLogo};% \fbox{\faTerminal}     
+      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-8pt,text=black] at (frame.north
+      east){\rule{0.8em}{0.6pt}\quad$\square$\quad{\Large$\times$}};    
+    },%
+    overlay first = {%
+      \node[inner sep=0pt,anchor=north west,yshift=-2pt,xshift=1.0pt,text=black]
+      at (frame.north west){~\WindowsLogo};%\small ~\faWindows
+      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-8pt,text=black] at (frame.north
+      east){\rule{0.8em}{0.6pt}\quad$\square$\quad{\Large$\times$}};      
+    }%
+  },
+  % win10 terminal light style
+  win10light/.style={
+    win10,%
+    colback=white,%
+    colupper=black,%
+    %coltext=black%
+  },
+  % win10 terminal dark style
+  win10dark/.style={
+    win10,%
+    colback=black,%
+    colupper=white,%
+    %coltext=white%
+  },
+  % Ubuntu terminal styles
+  ubuntu/.style={%
+    halign title=center,%
+    skin=bicolor,%
+    right=0pt,top=0pt,bottom=0pt,
+    left=0pt,
+    boxrule=0.5mm,%
+    breakable,% 
+    overlay unbroken = {%
+      \node[inner sep=0pt,anchor=north
+      east,yshift=-1pt,xshift=-5pt,text=white] at (frame.north
+      east){\UbuntuMin\UbuntuMax\UbuntuClose};%      
+    },%
+    overlay first = {%
+      \node[inner sep=0pt,anchor=north
+      east,yshift=-1pt,xshift=-5pt,text=white] at (frame.north
+      east){\UbuntuMin\UbuntuMax\UbuntuClose};%      
+    },%    
+    fonttitle=\scriptsize \sffamily,%\bfseries,%
+    fontupper=\small\sffamily,%
+    fontlower=\small\sffamily%
+  },
+  % apple terminal dark style
+  udark/.style={%
+    ubuntu,%
+    frame style={%
+      draw=mgray,%
+      left color=mgray,%
+      right color=mgray%
+    },%
+    colback=mpurple,%
+    colupper=white,%
+    colbacktitle=mgray,%
+    colframe=mgray,%
+    coltitle=white%
+    %coltext=MyLightGray
+  },
+  % apple terminal light style
+  ulight/.style={%
+    ubuntu,%
+    frame style={%
+      draw=cvgrayb,%
+      left color=cvgrayb,%
+      right color=cvgrayb%
+    },%
+    colback=cvgrayc,%
+    colupper=black,%
+    colbacktitle=cvgrayb,%
+    colframe=cvgrayb,%
+    coltitle=black%
+  },%
+  %
+  % ubuntu terminal dark style  
+  gitexample/.style={%
+    halign title=center,%
+    skin=bicolor,%
+    boxrule=1mm,%
+    fonttitle=\bfseries,%
+    coltitle=black,%
+    frame style={%
+      draw=mgray,%
+      left color=mgray,%
+      right color=mgray%
+    },%
+    colback=mpurple,%
+    colupper=white,%
+    breakable,%
+    colframe=mgray,%
+    colbacktitle=mgray,%
+    overlay unbroken={%
+      \node[inner sep=0pt,anchor=north west,yshift=-5pt,xshift=10pt,text=white] at (frame.north west){\UbuntuClose~\UbuntuMin~\UbuntuMax};%
+    },
+    overlay first={%
+      \node[inner sep=0pt,anchor=north west,yshift=-5pt,xshift=10pt,text=white] at (frame.north west){\UbuntuClose~\UbuntuMin~\UbuntuMax};%
+    }%    
+  }%
+}% end terminal style
+
+%------------------------------------------------------------------------------------
+% tcolorbox lang代码样式定义
+%------------------------------------------------------------------------------------
+\tcbset{%
+  skin=enhanced,
+  pad after break=0mm,
+  lang/.style={%
+    breakable,%
+    drop shadow,%
+    colframe=blue!75!black,%
+    right=0pt,top=0pt,bottom=0pt,
+    left=0pt,
+    enhanced,%
+    colframe=tcbcolback!60!black,%
+    colback=tcbcolback!30!white,%
+    colbacktitle=tcbcolback!5!yellow!10!white,%
+    fonttitle=\scriptsize\bfseries,%
+    coltitle=black,%
+    attach boxed title to top center={%
+      yshift=-0.25mm-\tcboxedtitleheight/2,%
+      yshifttext=2mm-\tcboxedtitleheight/2%
+    },%
+    attach boxed title to top left={%
+      xshift=1cm,%
+      yshift*=1mm-\tcboxedtitleheight%
+    },%
+    varwidth boxed title*=-3cm,%
+    boxed title style={%
+      frame code={%
+        \path[fill=tcbcolback!30!black]([yshift=-1mm,xshift=-1mm]frame.north west)%
+        arc[start angle=0,end
+        angle=180,radius=1mm]([yshift=-1mm,xshift=1mm]frame.north east)%
+        arc[start angle=180,end angle=0,radius=1mm];%
+        \path[left color=tcbcolback!60!black,right
+        color=tcbcolback!60!black,middle
+        color=tcbcolback!80!black]([xshift=-2mm]frame.north west)%
+        --([xshift=2mm]frame.north east)[rounded corners=1mm]%
+        --([xshift=1mm,yshift=-1mm]frame.north east)%
+        --(frame.south east)%
+        --(frame.south west)%
+        --([xshift=-1mm,yshift=-1mm]frame.north west)[sharp corners]%
+        --cycle;%
+      },%
+      interior engine=empty%
+    },%
+  }% 
+}% end tcolorbox lang style
+
+%------------------------------------------------------------------------------------
+% tcolorbox cv代码样式定义
+%------------------------------------------------------------------------------------
+\tcbset{
+  skin=enhanced,
+  cv/.style={
+    boxrule=0.4mm,
+    pad after break=-1.5ex,
+    breakable,
+    top=0mm,
+    boxsep=1mm,
+    drop shadow,
+    attach boxed title to top,
+    colframe=blue!75!black,
+    left=4.5mm,
+    right=0mm,
+    enhanced,
+    colframe=tcbcolback!60!black,
+    colback=white,
+    colbacktitle=cvgray,
+    fonttitle=\scriptsize\ttfamily,
+    coltitle=black,
+    overlay broken = {
+      \begin{tcbclipinterior}
+        \fill[cvblue] (frame.south west) rectangle ([xshift=5.9mm]frame.north west);
+      \end{tcbclipinterior}
+    },
+    underlay boxed title = {
+      \begin{tcbclipinterior}
+        \fill[cvblue] (frame.south west) rectangle ([xshift=5.9mm,yshift=0mm]frame.north west);
+      \end{tcbclipinterior}
+    }
+  }
+}% end tcolorbox lang style
+
+%------ 这段代码借用林前辈的, --shell-escape 时调用 minted 不然就用 listings-----------
+\ifnum\shellescape=1
+  \tcbuselibrary{minted}% 用minted排版代码
 %------------------------------------------------------------------------------------
 % minted part
 %------------------------------------------------------------------------------------
 \makeatletter
-\minted@def@optfv{highlightlinenumbercolor}%
+\minted@def@optfv{highlightlinenumbercolor}%需要fvextra.sty包放在当前路径，暂不明白为什么
 \minted@def@optfv{linenumberwidth}
 \makeatother
 
@@ -468,11 +478,11 @@
 % 第2个参数是窗口标题
 \DeclareTCBListing{macdarkc}{ m m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -491,11 +501,11 @@
 % 第2个参数是窗口标题
 \DeclareTCBListing{maclightc}{ m m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -513,11 +523,11 @@
 % 参数为窗口标题
 \DeclareTCBListing{macdark}{ m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -532,11 +542,11 @@
 % 参数为窗口标题
 \DeclareTCBListing{maclight}{ m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -553,11 +563,11 @@
 % 第3个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\macdarkcfile}[3]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -578,11 +588,11 @@
 % 第3个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\maclightcfile}[3]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -602,11 +612,11 @@
 % 第2个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\macdarkfile}[2]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -623,11 +633,11 @@
 % 第2个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\maclightfile}[2]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -647,11 +657,11 @@
 % 第2个参数是窗口标题
 \DeclareTCBListing{windarkc}{ m m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%    
@@ -670,11 +680,11 @@
 % 第2个参数是窗口标题
 \DeclareTCBListing{winlightc}{ m m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -692,11 +702,11 @@
 % 参数为窗口标题
 \DeclareTCBListing{windark}{ m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -711,11 +721,11 @@
 % 参数为窗口标题
 \DeclareTCBListing{winlight}{ m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -732,11 +742,11 @@
 % 第3个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\windarkcfile}[3]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -757,11 +767,11 @@
 % 第3个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\winlightcfile}[3]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -781,11 +791,11 @@
 % 第2个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\windarkfile}[2]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -802,11 +812,11 @@
 % 第2个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\winlightfile}[2]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -827,11 +837,11 @@
 % 第2个参数是窗口标题
 \DeclareTCBListing{ubtdarkc}{ m m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\xiaowu,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -850,11 +860,11 @@
 % 第2个参数是窗口标题
 \DeclareTCBListing{ubtlightc}{ m m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -872,11 +882,11 @@
 % 参数为窗口标题
 \DeclareTCBListing{ubtdark}{ m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\xiaowu,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -891,11 +901,11 @@
 % 参数为窗口标题
 \DeclareTCBListing{ubtlight}{ m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -912,11 +922,11 @@
 % 第3个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\ubtdarkcfile}[3]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -937,11 +947,11 @@
 % 第3个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\ubtlightcfile}[3]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -961,14 +971,14 @@
 % 第2个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\ubtdarkfile}[2]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
-    autogobble,%
+    %autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
-    numbersep=3mm%
+    %numbersep=3mm%
   },%
   listing only,%
   udark,%
@@ -982,11 +992,11 @@
 % 第2个参数是包含窗口内容的文件全路径名称(可以是相对路径)
 \newtcbinputlisting{\ubtlightfile}[2]{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     baselinestretch=0.6,%
     breaksymbolleft={},%
     numbersep=3mm%
@@ -1003,11 +1013,11 @@
 %=================================== 
 \DeclareTCBListing{GitExample}{ O{bash} m m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     numbersep=3mm%
   },%
   listing and comment,%
@@ -1024,11 +1034,11 @@
 %===================================
 \DeclareTCBListing{GitExampla}{ O{bash} m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     numbersep=3mm%
   },%
   listing only,%
@@ -1048,7 +1058,7 @@
     \end{tcbclipinterior}%
   },%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     highlightcolor={
       tcbcolback!30!white,
@@ -1059,7 +1069,7 @@
       tcbcolback!80!black
     },
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     linenos,%
     numbersep=1mm%
   },%
@@ -1076,27 +1086,13 @@
 % langPyOne environment definition 
 %===================================
 \DeclareTCBListing{langPyOne}{ O{python} m }{%
-  overlay={%
-    \begin{tcbclipinterior}
-      \fill[tcbcolback!80!black] (frame.south west) rectangle
-       ([xshift=6mm]frame.north west);
-    \end{tcbclipinterior}%
-  },%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
-    highlightcolor={
-      tcbcolback!30!white,
-      tcbcolback!30!white
-    },
-    highlightlinenumbercolor={
-      tcbcolback!80!black,
-      tcbcolback!80!black
-    },
     breaklines,%
-    fontsize=\wuhao,%
-    linenos,%
-    numbersep=1mm%
+    fontsize=\scriptsize,%
+    %linenos,%
+    %numbersep=1mm%
   },%
   listing only,%
   lang,%
@@ -1111,7 +1107,7 @@
 %===================================
 \DeclareTCBListing[use counter=cvcounter]{langCVOne}{ O{python} o o m}{%
   listing engine=minted,
-  minted style=xcode,
+  minted style=default,
   minted options={
     highlightcolor={
       cvgray!50!white,
@@ -1123,7 +1119,7 @@
     },
     mathescape,
     breaklines,
-    fontsize=\wuhao,
+    fontsize=\scriptsize,
     linenos,
     numbersep=1mm%
   },
@@ -1134,7 +1130,7 @@
   label = #2,
   overlay unbroken and first ={
     \begin{tcbclipinterior}
-      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\faFile*\ \faCode\ \faCodeBranch\ \faCopy\ \faExternalLink*\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};
+      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\scriptsize\faFile*\ \faCode\ \faCodeBranch\ \faCopy\ \faExternalLink*\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};
     \end{tcbclipinterior}
   }
 }% end langCVOne
@@ -1144,7 +1140,7 @@
 %=======================================================
 \DeclareTCBInputListing[use counter=cvcounter]{\langCVfile}{ O{python} o o m m}{%
   listing engine=minted,
-  minted style=xcode,
+  minted style=default,
   minted options={
     highlightcolor={
       cvgray!50!white,
@@ -1156,7 +1152,7 @@
     },
     mathescape,
     breaklines,
-    fontsize=\wuhao,
+    fontsize=\scriptsize,
     linenos,
     numbersep=1mm
   },
@@ -1168,7 +1164,7 @@
   label = #2,
   overlay unbroken and first ={
     \begin{tcbclipinterior}
-      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\faFile*\ \faCode\ \faCodeBranch\ \faCopy\ \faExternalLink*\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};
+      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\scriptsize\faFile*\ \faCode\ \faCodeBranch\ \faCopy\ \faExternalLink*\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};
     \end{tcbclipinterior}
   }
 }% end \langCVfile
@@ -1184,7 +1180,7 @@
     \end{tcbclipinterior}%
   },%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     highlightcolor={
       tcbcolback!30!white,
@@ -1195,7 +1191,7 @@
       tcbcolback!80!black
     },
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     linenos,%
     numbersep=1mm%
   },%
@@ -1211,11 +1207,11 @@
 %=======================================================
 \DeclareTCBInputListing{\gitfile}{ O{bash} m m }{%
   listing engine=minted,%
-  minted style=trac,%
+  minted style=default,%
   minted options={%
     autogobble,%
     breaklines,%
-    fontsize=\wuhao,%
+    fontsize=\scriptsize,%
     numbersep=3mm%
   },%
   listing only,%
@@ -1709,7 +1705,7 @@
   label = #2,
   overlay unbroken and first ={
     \begin{tcbclipinterior}
-      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\faFile*\ \faCode\ \faCodeBranch\ \faCopy\ \faExternalLink*\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};
+      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\scriptsize\faFile*\ \faCode\ \faCodeBranch\ \faCopy\ \faExternalLink*\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};
     \end{tcbclipinterior}
   }
 }% end langCVOne
@@ -1770,12 +1766,62 @@
   label = #2,
   overlay unbroken and first ={
     \begin{tcbclipinterior}
-      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\faFile*\ \faCode\ \faCodeBranch\ \faCopy\ \faExternalLink*\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};      
+      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\scriptsize\faFile*\ \faCode\ \faCodeBranch\ \faCopy\ \faExternalLink*\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};      
     \end{tcbclipinterior}
   }
 }% end \langCVfile  
+
+
 \fi
 
+%-----------------------------------------------------------------------
+% 命令行盒子
+%-----------------------------------------------------------------------
+%% 白底黑字命令行
+\newenvironment{shellbox}
+{%
+  \VerbatimEnvironment
+  \begin{tcolorbox}[
+    enhanced,
+    arc=2pt,
+    boxrule=.5pt,
+    left=5pt, right=5pt, top=0pt, bottom=0pt,
+    boxsep=5pt,
+    colframe=black,
+    colback=white,
+    coltext=black,
+    title={},
+    fontupper=\linespread{1.2}
+  ]%
+    \begin{Verbatim}
+}
+{%
+    \end{Verbatim}
+  \end{tcolorbox}
+}
+
+%% 黑底白字命令行
+\newenvironment{invertedshellbox}
+{%
+  \VerbatimEnvironment
+  \begin{tcolorbox}[
+    enhanced,
+    arc=2pt,
+    boxrule=.5pt,
+    left=5pt, right=5pt, top=0pt, bottom=0pt,
+    boxsep=5pt,
+    colframe=black!70!white,
+    colback=black!70!white,
+    coltext=white,
+    title={},
+    fontupper=\linespread{1.2}
+  ]%
+    \begin{Verbatim}
+}
+{%
+    \end{Verbatim}
+  \end{tcolorbox}
+}%
+
 \endinput
-%%
 %% End of file `boxie.sty'.

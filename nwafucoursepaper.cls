@@ -19,14 +19,36 @@
 \RequirePackage{multirow,makecell}% 表格行合并，单元格处理
 \RequirePackage{multicol}% 多栏
 \RequirePackage{ulem}% 下划线
+\RequirePackage[backend=biber,
+                style=gb7714-2015,
+                maxbibnames=99,% 著录所有作者
+                maxcitenames=2,% 引用标注中最多显示2个作者
+                mincitenames=1,% 3个及3个以上的作者截断为1个作者
+                gbpub=false,
+                gbnamefmt=familyahead,
+                url=false,
+                doi=false,
+                isbn=false,
+                gbfieldtype=true, % 输出学位论文标识
+                ]{biblatex} % 参考文献
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% captions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage[labelsep=quad]{caption}
+\DeclareCaptionFont{kai}{\kaishu}
+\captionsetup[table]{belowskip=0pt,aboveskip=5pt,labelfont=kai,textfont=kai}
+\captionsetup[figure]{belowskip=0pt,aboveskip=5pt,format=hang,labelfont=kai,textfont=kai}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 浮动体增强宏包
 %% 由于与minted宏包冲突，需要在boxie前载入
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{floatrow}
+\floatsetup[table]{objectset=centering, margins=centering}
 \floatsetup[figure]{objectset=centering, margins=centering}
-\RequirePackage[verbose]{wrapfig}
+%\RequirePackage[verbose]{wrapfig}
+\RequirePackage{subfig}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 命令行窗口及代码排版(自己开发的宏包)
@@ -101,6 +123,24 @@
 %% 交叉引用增强宏包(需在hyperref后引入)
 %% \autoref命令
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ===========设置引用标记名称============
+\def\equationautorefname~#1\null{公式(#1)\null}%
+\def\footnoteautorefname{脚注}%
+\def\itemautorefname~#1\null{第#1项\null}%
+\def\figureautorefname{图}%
+\def\tableautorefname{表}%
+%\def\partautorefname~#1\null{第#1部分\null}%
+\def\appendixautorefname{附录}%
+%\def\chapterautorefname~#1\null{第#1章\null}%
+\def\sectionautorefname~#1\null{第 ~#1~ 节\null}%
+\def\sectionautorefname~#1\null{第#1节\null}%
+\def\subsectionautorefname~#1\null{第#1小节\null}%
+\def\subsubsectionautorefname~#1\null{第#1小小节\null}%
+\def\paragraphautorefname~#1\null{第#1段\null}%
+\def\subparagraphautorefname~#1\null{第#1小段\null}%
+\def\theoremautorefname{定理}%
+\def\pageautorefname~#1\null{第~#1~页\null}%
+
 \RequirePackage[nameinlink]{cleveref}
 % 设置\cref章节引用格式
 \crefformat{section}{第~#2#1#3~节}
@@ -121,7 +161,7 @@
 \crefrangeformat{equation}{公式~(#3#1#4) 至~(#5#2#6)}
 \crefmultiformat{equation}{公式~(#2#1#3)}{ 和~(#2#1#3)}{, (#2#1#3)}{ 和~(#2#1#3)}
 % 处理代码交叉引用格式
-\renewcommand{\thecvcounter}{\thechapter.\arabic{cvcounter}}
+\renewcommand{\thecvcounter}{\thesection.\arabic{cvcounter}}
 \crefname{cvcounter}{代码}{代码列表}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -206,7 +246,7 @@
 \newcommand\nwafu@make@abstract@cn{
   \noindent\rule{\textwidth}{.5pt}\\%[1ex]
   \begingroup    
-    \setlength\parindent{2\ccwd}\songti\indent
+    \setlength\parindent{2\ccwd}\songti\noindent
     {\heiti\zihao{-4} \makebox[\widthof{\nwafu@label@keywords}][s]{\nwafu@label@abstract}:}
     {\songti\zihao{5}\nwafu@abstract}
   \endgroup
@@ -214,7 +254,7 @@
   \vspace{2ex}
 
   \begingroup
-    \setlength\parindent{2\ccwd}\songti\indent
+    \setlength\parindent{2\ccwd}\songti\noindent
     {\heiti\zihao{-4} \nwafu@label@keywords{}:}
     {\songti\zihao{5}\nwafu@keywords}
     %\nwafu@put@kw{\heiti\zihao{-4}\nwafu@label@keywords{}：}{\songti\zihao{5}\nwafu@keywords}    
@@ -230,11 +270,11 @@
 \ctexset{
   section = {
     format+ = \zihao{4} \heiti \raggedright,
-    name = {,、},
-    number = \chinese{section},
+    %name = {,、},
+    %number = \chinese{section},
     beforeskip = 1.0ex plus 0.2ex minus .2ex,
     afterskip = 1.0ex plus 0.2ex minus .2ex,
-    aftername = \hspace{0pt}
+    aftername = \hspace{0.5\ccwd}
   },
   subsection = {
     format+ = \zihao{-4} \heiti \raggedright,
@@ -307,12 +347,6 @@
 % 中文行距调整
 \RequirePackage{zhlineskip}
 
-%% captions
-\RequirePackage[singlelinecheck=false]{caption}
-\DeclareCaptionFont{kai}{\kaishu}
-\captionsetup[table]{belowskip=0pt,aboveskip=5pt,labelfont=kai,textfont=kai}
-\captionsetup[figure]{belowskip=0pt,aboveskip=5pt,format=hang,labelfont=kai,textfont=kai}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 重定义强调字体的代码，
 %% 解决默认强调字体是italic，中文用楷体代替，
@@ -340,7 +374,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 解决中英文混排文字超出边界问题
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\sloppy 
+\sloppy%
 
 \endinput
 %% End of file `nwafucoursepaper.cls'.

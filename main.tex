@@ -7,13 +7,17 @@
 \input{settings/format.tex}
 % 专用术语宏命令进行必要的设置
 \input{settings/terms.tex}
+% % % 用于排版LaTeX代码并同时输出结果的环境定义(若无此需要，可以不加载)
+% % \input{settings/code-with-output.tex}
+% % % 用于排版LaTeX命令代码的环境定义(若无此需要，可以不加载)
+% % \input{settings/tcb-documentation.tex}
 % 乱数假文宏包
 \usepackage{zhlipsum}
 
 \title{\bfseries\sffamily 数据类型错误引起的死循环问题}
 \author{\zihao{4} \fangsong 耿楠\\\small \songti 信息
   工程学院，陕西$\cdot$杨凌，712100}
-\date{\today}
+\date{\small \today}
 
 % 摘要内容
 \begin{abstract}
@@ -27,6 +31,8 @@
 % 关键词内容(用英文","分割)
 \keywords{数据类型, 死循环, 截断误差, \db{}}
 
+%biblatex宏包的参考文献数据源加载方式
+\addbibresource[location=local]{bib/example.bib}
 \begin{document} %在document环境中撰写文档
 % 排版标题
 \maketitle
@@ -34,7 +40,7 @@
 % 排版摘要
 \makeabstract
 
-% 排版具体内容
+排版具体内容
 \section{摘要}
 摘要内容请置于\verb|abstract|环境中，关键词内容用英文\enquote{,}分割
 后，置于\verb|\keywords{..., ..., ...}|命令中。
@@ -46,15 +52,280 @@
 \section{浮动体}
 在\enquote{nwafucoursepaper.cls}模板中，引入了floatrow宏包进行浮动体排
 版。有关该宏包的使用细节，请在命令行使用\enquote{texdoc floatrow}命令
-查看其使用说明书。
+查看其使用说明书。例如，可以用\cref{texcode01}排版\autoref{sharefig:a}。
+
+\begin{center}
+\begin{minipage}{0.62\linewidth}
+\begin{langCVOne}[tex][texcode01][\LaTeX{}]{排版单一插图浮动体}
+  \begin{figure}[!htp]
+    \begin{floatrow}
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.35\textwidth]{example-image-a}
+      }{\caption{一个插图}\label{sharefig:a}}
+    \end{floatrow}
+  \end{figure}
+\end{langCVOne}
+\end{minipage}
+\begin{minipage}{0.3\linewidth}
+    \ffigbox[\FBwidth]{
+      \includegraphics[width=0.8\textwidth]{example-image-a}
+    }{\caption{一个插图}\label{sharefig:a}}
+\end{minipage}
+\end{center}
+
+当然，也可以用\cref{texcode02}排版\autoref{trifig}。  
+
+\begin{center}
+%\begin{minipage}{1.00\linewidth}
+\begin{langCVOne}[tex][texcode02][\LaTeX{}]{排版单一插图浮动体}
+\begin{figure}[!htp]
+  \ffigbox[\textwidth]%
+  {%
+    \begin{subfloatrow}[2]%\useFCwidth
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.3\textwidth]{example-image-a}
+      }{\caption{子题注1}\label{trifig:a}}
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.3\textwidth]{example-image-b}
+      }{\caption{子题注2}\label{trifig:b}}
+    \end{subfloatrow}    
+    \begin{subfloatrow}[2]%\useFCwidth      
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.3\textwidth]{example-image-c}
+      }{\caption{子题注3}\label{trifig:c}}
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.3\textwidth]{example-image}
+      }{\caption{子题注4}\label{trifig:d}}
+    \end{subfloatrow}
+  }{\caption{四个子图}\label{trifig}}
+\end{figure}
+\end{langCVOne}
+%\end{minipage}
+\end{center}
+
+\begin{figure}[!htp]
+  \ffigbox[\textwidth]%
+  {%
+    \begin{subfloatrow}[2]%\useFCwidth
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.25\textwidth]{example-image-a}
+      }{\caption{子题注1}\label{trifig:a}}
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.25\textwidth]{example-image-b}
+      }{\caption{子题注2}\label{trifig:b}}
+    \end{subfloatrow}    
+    \begin{subfloatrow}[2]%\useFCwidth      
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.25\textwidth]{example-image-c}
+      }{\caption{子题注3}\label{trifig:c}}
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.25\textwidth]{example-image}
+      }{\caption{子题注4}\label{trifig:d}}
+    \end{subfloatrow}
+  }{\caption{四个子图}\label{trifig}}
+\end{figure}
+
 \section{插图标注}
 在\enquote{nwafucoursepaper.cls}模板中，引入了改自tikz-imagelabels宏包
 的tikz-imglabels宏包，利用TiKZ为插图进行标注。该宏包的使用细节与
 tikz-imagelabels完全一致，请在命令行使用\enquote{texdoc tikz-imagelabels}命令
-查看其使用说明书。
+查看其使用说明书。\cref{texcode03}用于实现\autoref{fig:annot}所示的插图标注。
+
+\begin{center}
+\begin{langCVOne}[tex][texcode03][\LaTeX{}]{插图标注代码}
+\begin{figure}[!htp]
+  \centering
+    \begin{annotationimage}{width=0.8\textwidth}{figs/01reviewicons01}
+      % 绘制外观设置按钮分组示意下划线
+      \draw[thick,blue] (0.86,0.26) -- (1.0,0.26);
+      % 添加各图标标注
+      \foreach \ann/\xpos in
+      {
+        {附\\注\\工\\具}/0.02, {高\\亮\\工\\具}/0.07,
+        {下\\划\\线\\工\\具}/0.126, {删\\除\\线\\工\\具}/0.18,
+        {删\\除\\线\\并\\插\\入\\附\\注\\工\\具}/0.229, {插\\入\\文\\本\\工\\具}/0.283,
+        {文\\本\\工\\具}/0.346, {文\\本\\框\\工\\具}/0.40,
+        {铅\\笔\\绘\\图\\工\\具}/0.45, {铅\\笔\\擦\\工\\具}/0.51,
+        {图\\章\\工\\具}/0.56, {附\\加\\文\\件\\工\\具}/0.63,
+        {绘\\图\\工\\具}/0.7, {保\\持\\选\\择\\工\\具}/0.79,
+        {注\\释\\外\\观\\设\\置}/0.93
+      }
+      {
+        \draw[annotation below = {{\ann} at \xpos}] to (\xpos,0.48);
+      }
+    \end{annotationimage}
+    \caption{插图标注}\label{fig:annot}
+  \end{figure}
+\end{langCVOne}
+\end{center}
+
+%\begin{center}
+  \begin{figure}[!htp]
+    \centering
+    \begin{annotationimage}{width=0.8\textwidth}{figs/01reviewicons01}
+      % 绘制外观设置按钮分组示意下划线
+      \draw[thick,blue] (0.86,0.26) -- (1.0,0.26);
+      % 添加各图标标注
+      \foreach \ann/\xpos in
+      {
+        {附\\注\\工\\具}/0.02, {高\\亮\\工\\具}/0.07,
+        {下\\划\\线\\工\\具}/0.126, {删\\除\\线\\工\\具}/0.18,
+        {删\\除\\线\\并\\插\\入\\附\\注\\工\\具}/0.229, {插\\入\\文\\本\\工\\具}/0.283,
+        {文\\本\\工\\具}/0.346, {文\\本\\框\\工\\具}/0.40,
+        {铅\\笔\\绘\\图\\工\\具}/0.45, {铅\\笔\\擦\\工\\具}/0.51,
+        {图\\章\\工\\具}/0.56, {附\\加\\文\\件\\工\\具}/0.63,
+        {绘\\图\\工\\具}/0.7, {保\\持\\选\\择\\工\\具}/0.79,
+        {注\\释\\外\\观\\设\\置}/0.93
+      }
+      {
+        \draw[annotation below = {{\ann} at \xpos}] to (\xpos,0.48);
+      }
+    \end{annotationimage}
+    \caption{插图标注}\label{fig:annot}
+  \end{figure}
+%\end{center}
+
 \section{流程图}
 在\enquote{nwafucoursepaper.cls}模板中，引入了自己开发的tikz-flowchart宏包
-进行流程图的绘制。请在\github{}查看\href{https://github.com/registor/tikz-flowchart}{tikz-flowchart宏包}的使用说明书。
+进行流程图的绘制。请在\github{}查看
+\href{https://github.com/registor/tikz-flowchart}{tikz-flowchart宏包}
+的使用说明书。
+
+在绘制流程图时，可以先用纸和笔打一人草稿，然后根据草稿布置各人结点，再
+连接流程线。这样，可以做到心中有数，绘制较为方便。
+
+\autoref{subfig:draft}是一个流程图草稿。
+根据该草稿，基于tikz-flowchart宏包，
+用\cref{texcode04}可绘制\autoref{subfig:tikz}所示的流程图。
+
+\begin{center}
+  \begin{langCVOne}[tex][texcode04][\LaTeX{}]{绘制流程图}
+    % 流程图绘制属性设置
+    \flowchartset{
+      proc fill color = orange!10, % 顺序处理框填充颜色(默认取白色)
+      test fill color = green!30, % 判断框填充颜色(默认取白色)
+      io fill color = blue!30, % 输入/输出框填充颜色(默认取白色)
+      term fill color = red!30, % 开始/结束框填充颜色(默认取白色)
+    }
+    % 绘制流程图
+    \begin{tikzpicture}[scale=0.53,transform shape,]
+      % 布置结点单元
+      \node [term] (st) {开始};
+      \node [proc, text width = 5em, join] (p1) {int divisor};       
+      \node [test, join] (t1) {n <= 1};
+      \node [proc, text width = 5em] (p2) {divisor = 2};
+      \node [test, text width = 10em, join] (t2) {divisor * divisor <= n};
+      \node [test, text width = 8em] (t3) {n \% divisor == 0};
+      \node [proc, text width = 5em] (p3) {divisor++};
+      \node [term, below = 1.6 of p3] (end) {结束};
+      \node [proc, text width = 4em, left = 4.8 of t2] (p4) {return 0};
+      \node [proc, text width = 4em, right = 3.5 of p3] (p5) {return 0};
+      \node [proc, text width = 4em, right = 5.8 of t3] (p6) {return 1};
+
+      % 布置用于连接的坐标结点，同时为其布置调试标记点。
+      \node [coord] (c1) at ($(p2.south)!0.5!(t2.north)$)  {}; \cmark{1}
+      \node [coord, below = 0.25 of p3] (c2)  {}; \cmark{2}
+      \node [coord, above = 0.5 of end] (c3) {};  \cmark{3}
+      \node [coord, left = 0.5 of t2] (ct) {};  \cmark{t}
+      \node [coord] (c4) at (c3 -| p5)  {}; \cmark{4}
+      \node [coord] (c5) at (c2 -| ct)  {}; \cmark{5}
+        
+      % 判断框连线，每次绘制时，先绘制一个带有一个固定
+      % 位置标注的路径(path)，然后再绘制箭头本身(arrow)。
+      \path (t1.south) -- node [near start, right] {$N$} (p2.north);
+      \draw [norm] (t1.south) -- (p2.north);
+      \path (t1.west) -| node [near start, above] {$Y$} (p4.north);
+      \draw [norm] (t1.west) -| (p4.north);
+      
+      \path (t2.south) -- node [near start, right] {$Y$} (t3.north);
+      \draw [norm] (t2.south) -- (t3.north);
+      \path (t2.east) -| node [near start, above] {$N$} (p6.north);
+      \draw [norm] (t2.east) -| (p6.north);
+      
+      \path (t3.south) -- node [near start, right] {$N$} (p3.north);
+      \draw [norm] (t3.south) -- (p3.north);
+      \path (t3.east) -| node [near start, above] {$Y$} (p5.north);
+      \draw [norm] (t3.east) -| (p5.north);
+
+      % 其它连线
+      \draw [norm](p3.south) |- (c5) |- (c1);
+      \draw [norm](p4.south) |- (c3);
+      \draw [norm](p4.south) |- (c3) -- (end);
+      \draw [norm](p5.south) -- (c4);
+      \draw [norm](p6.south) |- (c3);
+      \draw [norm](p6.south) |- (c3) -- (end);
+    \end{tikzpicture}
+  \end{langCVOne}
+\end{center}
+
+% 流程图绘制属性设置
+\flowchartset{
+  proc fill color = orange!10, % 顺序处理框填充颜色(默认取白色)
+  test fill color = green!30, % 判断框填充颜色(默认取白色)
+  io fill color = blue!30, % 输入/输出框填充颜色(默认取白色)
+  term fill color = red!30, % 开始/结束框填充颜色(默认取白色)
+}
+
+\begin{figure}[!htp]
+  \ffigbox[\textwidth]%
+  {%
+    \begin{subfloatrow}[2]%\useFCwidth
+      \ffigbox[\FBwidth]{
+        \includegraphics[width=0.35\textwidth]{02gcd}
+      }{\caption{草图}\label{subfig:draft}}
+      \ffigbox[\FBwidth]{
+        \begin{tikzpicture}[scale=0.53,transform shape,]
+          % 布置结点单元
+          \node [term] (st) {开始};
+          \node [proc, text width = 5em, join] (p1) {int divisor};       
+          \node [test, join] (t1) {n <= 1};
+          \node [proc, text width = 5em] (p2) {divisor = 2};
+          \node [test, text width = 10em, join] (t2) {divisor * divisor <= n};
+          \node [test, text width = 8em] (t3) {n \% divisor == 0};
+          \node [proc, text width = 5em] (p3) {divisor++};
+          \node [term, below = 1.6 of p3] (end) {结束};
+          \node [proc, text width = 4em, left = 4.8 of t2] (p4) {return 0};
+          \node [proc, text width = 4em, right = 3.5 of p3] (p5) {return 0};
+          \node [proc, text width = 4em, right = 5.8 of t3] (p6) {return 1};
+
+          % 布置用于连接的坐标结点，同时为其布置调试标记点。
+          \node [coord] (c1) at ($(p2.south)!0.5!(t2.north)$)  {}; \cmark{1}
+          \node [coord, below = 0.25 of p3] (c2)  {}; \cmark{2}
+          \node [coord, above = 0.5 of end] (c3) {};  \cmark{3}
+          \node [coord, left = 0.5 of t2] (ct) {};  \cmark{t}
+          \node [coord] (c4) at (c3 -| p5)  {}; \cmark{4}
+          \node [coord] (c5) at (c2 -| ct)  {}; \cmark{5}
+        
+          % 判断框连线，每次绘制时，先绘制一个带有一个固定
+          % 位置标注的路径(path)，然后再绘制箭头本身(arrow)。
+          \path (t1.south) -- node [near start, right] {$N$} (p2.north);
+          \draw [norm] (t1.south) -- (p2.north);
+          \path (t1.west) -| node [near start, above] {$Y$} (p4.north);
+          \draw [norm] (t1.west) -| (p4.north);
+        
+          \path (t2.south) -- node [near start, right] {$Y$} (t3.north);
+          \draw [norm] (t2.south) -- (t3.north);
+          \path (t2.east) -| node [near start, above] {$N$} (p6.north);
+          \draw [norm] (t2.east) -| (p6.north);
+        
+          \path (t3.south) -- node [near start, right] {$N$} (p3.north);
+          \draw [norm] (t3.south) -- (p3.north);
+          \path (t3.east) -| node [near start, above] {$Y$} (p5.north);
+          \draw [norm] (t3.east) -| (p5.north);
+
+          % 其它连线
+          \draw [norm](p3.south) |- (c5) |- (c1);
+          \draw [norm](p4.south) |- (c3);
+          \draw [norm](p4.south) |- (c3) -- (end);
+          \draw [norm](p5.south) -- (c4);
+          \draw [norm](p6.south) |- (c3);
+          \draw [norm](p6.south) |- (c3) -- (end);
+        \end{tikzpicture}
+      }{\caption{TiKZ绘制图}\label{subfig:tikz}}
+    \end{subfloatrow}
+  }{\caption{用TiKZ绘制流程图}\label{fig:flowcharttikzdraw}}
+\end{figure}
+
 \section{标题和列表环境}
 \subsection{二级标题}
 \subsubsection{三级标题}
@@ -140,15 +411,35 @@ tikz-imagelabels完全一致，请在命令行使用\enquote{texdoc tikz-imagela
 
 \section{交叉引用}
 在\enquote{nwafucoursepaper.cls}模板中，交叉引用基于cleveref宏包实现，
-用\verb|\autoref|命令实现引用，并对图、表、节、小节、公式、代码等引用
+用\verb|\autoref|和\verb|\cref|命令实现引用，并对图、表、节、小节、公式、代码等引用
 标记字/词进行了设置。如对一人标签为\enquote{fig:01}的图使用
-\verb|\autoref{fig:01}|便可以得到\enquote{图 XX}的结果。
+\verb|\autoref{fig:01}|便可以得到\enquote{图 XX}的结果，用
+\verb|\cref{texcode01}|就可以得到\enquote{代码 XX.XX}的结果。
+
+\section{参考文献}
+参考文献采用GB/T7714-2015标准的顺序编码制，使用biber+biblatex方式实现，
+样式控制选择\enquote{biblatex-gb7714-2015}宏包的顺序编码制
+(gb7714-2015)样式，如\cref{texcode06}：
+
+\begin{center}
+  \begin{langCVOne}[tex][texcode06][\LaTeX{}]{引用参考文献}
+    % 引用参考文献
+    详见文献\cite{Peebles2001-100-100}\parencite{Babu2014--}
+    另见文献\cite[49]{于潇2012-1518-1523}\parencite[106]{Babu2014--}
+  \end{langCVOne}
+\end{center}
+
+能够生成如下引用结果：
+
+% 引用参考文献
+详见文献\cite{Peebles2001-100-100}\parencite{Babu2014--}
+另见文献\cite[49]{于潇2012-1518-1523}\parencite[106]{Babu2014--}
 
 \section{已载入的宏包}
 在\enquote{nwafucoursepaper.cls}模板中，已引入的宏包有：
 \verb|etoolbox|、\verb|enumitem|、\verb|amsmath|、\verb|mathrsfs|、
 \verb|amsfonts|、\verb|booktabs|、\verb|colortbl|、\verb|multirow|、
-\verb|makecell|、\verb|multicol|、\verb|ulem|、\verb|floatrow|、
+\verb|makecell|、\verb|multicol|、\verb|ulem|、\verb|biblatex|、\verb|floatrow|、
 \verb|wrapfig|、\verb|boxie|、\verb|tikz-imglabels|、
 \verb|tikz-flowchart|、\verb|hyperref|、\verb|cleveref|、
 \verb|bookmark|、\verb|graphicx|、\verb|geometry|、
@@ -159,11 +450,12 @@ tikz-imagelabels完全一致，请在命令行使用\enquote{texdoc tikz-imagela
 \begin{importantBox}
   在使用在\enquote{nwafucoursepaper.cls}模板前请确保：
   \verb|tikz-flowchart.sty|、\verb|boxie.sty|、
-  \verb|tikz-flowchart.sty|、\verb|tikz-imglabels.sty|这四个文件在当前
+  \verb|tikz-flowchart.sty|、\verb|tikz-imglabels.sty|、\verb|fvextra.sty|、\verb|lstlinebgrd.sty|这六个文件在当前
   工作文件夹中。
 \end{importantBox}
 
-
+% 打印参考文献表
+\printbibliography[heading=bibliography,title=参考文献]
 \end{document}
 
 %%% Local Variables:
