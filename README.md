@@ -1,8 +1,6 @@
 # nwafuCoursePaper
 一个适用于西北农林科技大学科技类及IT类课程小论文排版的LaTeX模板。
 
-该模板改自于https://github.com/WisdomFusion/latex-templates，在此对原作者表示由衷的感谢。
-
 Happy LaTeXing!~
 
 ## 注意
@@ -15,9 +13,6 @@ Happy LaTeXing!~
 
 - 方便科技类或IT类课程论文排版；
 - 定制摘要、各级节标题、表格、页眉页脚等样式；
-- 定义`primary`、`secondary`、`success`、`danger`、`info`、`warning`、`light`和`dark`等颜色样式；
-- 定义`JavaScript/ES6`, `TypeScript`, `golang`等`listings`未定议的语言样式；
-- 定义`shell`命令及输出展示环境：`shellbox`和`invertedshellbox`；
 - 使用`tcolorbox`新建`noteBox`、`importantBox`、`tipBox`和`warningBox`本文框，以展示“注意”、“重要”、“技巧”和“警告”信息。
 
 ## 反馈

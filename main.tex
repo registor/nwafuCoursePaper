@@ -5,6 +5,8 @@
 \input{settings/packages.tex}
 % 进行必要的设置
 \input{settings/format.tex}
+% 专用术语宏命令进行必要的设置
+\input{settings/terms.tex}
 % 乱数假文宏包
 \usepackage{zhlipsum}
 
@@ -15,14 +17,15 @@
 
 % 摘要内容
 \begin{abstract}
-  本文针对C语言程序设计中，在计算浮点数时，由于未正确声明保存结果的变
-  量的数据类型，从而引起了截断误差，造成循环陷入\enquote{死循环}的问题。
-  采用DEBUG的方法，通过单步调试和跟踪程序，分析程序运行过程中的各个变
-  量的值的变化情况，定位了引起程序死循环错误代码。进一步，通过分析，确
-  定了修改程序的方案。实验表明，利用DEBUG调试程序是非常有必要的。
+  针对一个\cl{}程序设计陷入\enquote{死循环}的问题，采用中\db{}技术，通
+  过单步跟踪和分析程序运行过程中的各个变量值的变化，定位了引起程序死循
+  环错误代码，确定了变量类型是引发错误的原因，并提出了对应解决方案。实
+  验表明，在浮点数计算时，将其结果存储到整型变量，会出现截断误差，使
+  程序产生分支错误，进而会造成\enquote{死循环}。同时也可以得知，当程序
+  出现错误，特别是出现逻辑错误时，使用\db{}跟踪和调试程序是非常有必要的。
 \end{abstract}
 % 关键词内容(用英文","分割)
-\keywords{数据类型, 死循环, 截断误差, DEBUG}
+\keywords{数据类型, 死循环, 截断误差, \db{}}
 
 \begin{document} %在document环境中撰写文档
 % 排版标题
@@ -32,28 +35,135 @@
 \makeabstract
 
 % 排版具体内容
-\section{引言}
-\subsection{目的和意义}
-\zhlipsum[2]
-\subsection{现状}
-\zhlipsum[3]
-\section{方法}
-\subsection{静态分析}
-\zhlipsum[4]
-\subsection{动态调试}
-\zhlipsum[5]
-\section{结果}
-\subsection{预测结果}
-\zhlipsum[6]
-\subsection{测试结果}
-\zhlipsum[7]
-\section{分析}
-\subsection{问题来源}
-\zhlipsum[8]
-\subsection{解决方案}
-\zhlipsum[9]
-\section{结论}
-\zhlipsum[10]
+\section{摘要}
+摘要内容请置于\verb|abstract|环境中，关键词内容用英文\enquote{,}分割
+后，置于\verb|\keywords{..., ..., ...}|命令中。
+
+\verb|abstract|环境和\verb|\keywords{}|命可以在导言区，也可以在正文区。
+
+设置好摘要内容和关键词内容后，在正文区用\verb|\maketitle|命令排版完题
+目及作者、日期后，用\verb|\makeabstract|命令排版摘要。
+\section{浮动体}
+在\enquote{nwafucoursepaper.cls}模板中，引入了floatrow宏包进行浮动体排
+版。有关该宏包的使用细节，请在命令行使用\enquote{texdoc floatrow}命令
+查看其使用说明书。
+\section{插图标注}
+在\enquote{nwafucoursepaper.cls}模板中，引入了改自tikz-imagelabels宏包
+的tikz-imglabels宏包，利用TiKZ为插图进行标注。该宏包的使用细节与
+tikz-imagelabels完全一致，请在命令行使用\enquote{texdoc tikz-imagelabels}命令
+查看其使用说明书。
+\section{流程图}
+在\enquote{nwafucoursepaper.cls}模板中，引入了自己开发的tikz-flowchart宏包
+进行流程图的绘制。请在\github{}查看\href{https://github.com/registor/tikz-flowchart}{tikz-flowchart宏包}的使用说明书。
+\section{标题和列表环境}
+\subsection{二级标题}
+\subsubsection{三级标题}
+\zhlipsum[1]
+\subsection{列表环境}
+在\enquote{nwafucoursepaper.cls}模板中，基于enumitem宏包分别对\verb|itemize|、
+\verb|enumerate|和\verb|description|三个环境的各个距离参数进行了修正，以使其排版结果
+符合中文习惯的首先缩进格式。
+\subsubsection{itemize环境}
+\begin{itemize}
+\item 床前明月光，床前明月光，床前明月光，床前明月光，床前明月光，床前明月光，床前明月光。
+\item 疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜。
+\item 举头望明月，举头望明月，举头望明月，举头望明月，举头望明月，举头望明月，举头望明月。
+\item 低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡。
+\end{itemize}
+\subsubsection{enumerate环境}
+\begin{enumerate}
+\item 床前明月光，床前明月光，床前明月光，床前明月光，床前明月光，床前明月光，床前明月光。
+\item 疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜。
+\item 举头望明月，举头望明月，举头望明月，举头望明月，举头望明月，举头望明月，举头望明月。
+\item 低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡。
+\end{enumerate}
+\subsubsection{description环境}
+\begin{description}
+\item[床前明月光]，床前明月光，床前明月光，床前明月光，床前明月光，床前明月光，床前明月光。
+\item[疑是地上霜]，疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜，疑是地上霜。
+\item[举头望明月]，举头望明月，举头望明月，举头望明月，举头望明月，举头望明月，举头望明月。
+\item[低头思故乡]，低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡。
+\end{description}
+
+\section{\enquote{emph}强调字体}
+在\enquote{nwafucoursepaper.cls}模板中，重定义强调字体，将默认强调字体
+是italic，中文用楷体代替操作更换为加粗操作，用加粗后的字体表示强调。
+\section{文本框盒子}
+文本框盒子继承于自己开发的boxie宏包，其使用细节请在\github{}查看
+\href{https://github.com/registor/boxiesty}{boxie宏包}的使用说明书。
+同时，在该宏包的基础上，为boxie宏包添加加了摘自于
+\href{https://github.com/WisdomFusion/latex-templates/tree/master/progartcn}{progartcn
+  论文模板}的\enquote{标题}、\enquote{注意}、\enquote{重要}、
+\enquote{技巧}和\enquote{警告}文本框环境代码\footnote{本节示例摘自于
+  该模板中的tutorial-sample.tex文件}。
+\subsection{\enquote{标题}文本框}
+标题文本框环境的使用格式为：
+
+\verb|\begin{titledBox}{<title>} <content> \end{titledBox}|
+
+\begin{titledBox}{HTTP/Console 内核}
+  HTTP 内核继承自 \verb|Illuminate\Foundation\Http\Kernel| 类，该类定义了一个 \verb|bootstrappers| 数组，这个数组中的类在请求被执行前运行，这些 \verb|bootstrappers| 配置了错误处理、日志、检测应用环境以及其它在请求被处理前需要执行的任务。
+\end{titledBox}
+\subsection{\enquote{注意}文本框}
+注意文本框环境的使用格式为：
+
+\verb|\begin{noteBox} <content> \end{noteBox}|
+
+\begin{noteBox}
+  HTTP 内核继承自 \verb|Illuminate\Foundation\Http\Kernel| 类，该类定义了一个 \verb|bootstrappers| 数组，这个数组中的类在请求被执行前运行，这些 \verb|bootstrappers| 配置了错误处理、日志、检测应用环境以及其它在请求被处理前需要执行的任务。
+\end{noteBox}
+
+\subsection{\enquote{重要}文本框}
+重要文本框环境的使用格式为：
+
+\verb|\begin{importantBox} <content> \end{importantBox}|
+
+\begin{importantBox}
+  HTTP 内核继承自 \verb|Illuminate\Foundation\Http\Kernel| 类，该类定义了一个 \verb|bootstrappers| 数组，这个数组中的类在请求被执行前运行，这些 \verb|bootstrappers| 配置了错误处理、日志、检测应用环境以及其它在请求被处理前需要执行的任务。
+\end{importantBox}
+\subsection{\enquote{技巧}文本框}
+技巧文本框环境的使用格式为：
+
+\verb|\begin{tipBox} <content> \end{tipBox}|
+
+\begin{tipBox}
+  HTTP 内核继承自 \verb|Illuminate\Foundation\Http\Kernel| 类，该类定义了一个 \verb|bootstrappers| 数组，这个数组中的类在请求被执行前运行，这些 \verb|bootstrappers| 配置了错误处理、日志、检测应用环境以及其它在请求被处理前需要执行的任务。
+\end{tipBox}
+\subsection{\enquote{警告}文本框}
+警告文本框环境的使用格式为：
+
+\verb|\begin{warningBox} <content> \end{warningBox}|
+
+\begin{warningBox}
+  HTTP 内核继承自 \verb|Illuminate\Foundation\Http\Kernel| 类，该类定义了一个 \verb|bootstrappers| 数组，这个数组中的类在请求被执行前运行，这些 \verb|bootstrappers| 配置了错误处理、日志、检测应用环境以及其它在请求被处理前需要执行的任务。
+\end{warningBox}
+
+\section{交叉引用}
+在\enquote{nwafucoursepaper.cls}模板中，交叉引用基于cleveref宏包实现，
+用\verb|\autoref|命令实现引用，并对图、表、节、小节、公式、代码等引用
+标记字/词进行了设置。如对一人标签为\enquote{fig:01}的图使用
+\verb|\autoref{fig:01}|便可以得到\enquote{图 XX}的结果。
+
+\section{已载入的宏包}
+在\enquote{nwafucoursepaper.cls}模板中，已引入的宏包有：
+\verb|etoolbox|、\verb|enumitem|、\verb|amsmath|、\verb|mathrsfs|、
+\verb|amsfonts|、\verb|booktabs|、\verb|colortbl|、\verb|multirow|、
+\verb|makecell|、\verb|multicol|、\verb|ulem|、\verb|floatrow|、
+\verb|wrapfig|、\verb|boxie|、\verb|tikz-imglabels|、
+\verb|tikz-flowchart|、\verb|hyperref|、\verb|cleveref|、
+\verb|bookmark|、\verb|graphicx|、\verb|geometry|、
+\verb|environ|、\verb|fancyhdr|、\verb|zhlineskip|、\verb|caption|，
+无需再次引入这些宏包。
+
+\section{重要文件}
+\begin{importantBox}
+  在使用在\enquote{nwafucoursepaper.cls}模板前请确保：
+  \verb|tikz-flowchart.sty|、\verb|boxie.sty|、
+  \verb|tikz-flowchart.sty|、\verb|tikz-imglabels.sty|这四个文件在当前
+  工作文件夹中。
+\end{importantBox}
+
+
 \end{document}
 
 %%% Local Variables:

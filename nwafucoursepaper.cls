@@ -12,13 +12,21 @@
 %% 其它需要的宏包
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{etoolbox}% 为命令和环境打补丁的宏包
-\RequirePackage{enumerate}% 调整列表格式
+\RequirePackage{enumitem}% 调整列表格式
 \RequirePackage{amsmath,mathrsfs,amsfonts} % 数学相关
 \RequirePackage{booktabs}% 三线表格
 \RequirePackage{colortbl}% 彩色表格
 \RequirePackage{multirow,makecell}% 表格行合并，单元格处理
 \RequirePackage{multicol}% 多栏
 \RequirePackage{ulem}% 下划线
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 浮动体增强宏包
+%% 由于与minted宏包冲突，需要在boxie前载入
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{floatrow}
+\floatsetup[figure]{objectset=centering, margins=centering}
+\RequirePackage[verbose]{wrapfig}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 命令行窗口及代码排版(自己开发的宏包)
@@ -36,6 +44,47 @@
 \RequirePackage{tikz-flowchart}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 将列表项缩进方式改为首行缩进的中文格式
+%% 需要enumitem宏包
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlist[description]{
+    topsep=0pt,
+    itemsep=0pt,
+    partopsep=0pt,
+    parsep=\parskip,
+    labelindent=\parindent,
+    labelwidth=1.3em,
+    labelsep = .3em,
+    itemindent=3.6em,
+    leftmargin=!,
+}
+
+\setlist[enumerate]{
+    topsep=0pt,
+    itemsep=0pt,
+    partopsep=0pt,
+    parsep=\parskip,
+    label={\arabic*)},
+    labelindent=\parindent,
+    labelwidth=1.3em,
+    labelsep = .3em,
+    itemindent=3.6em,
+    leftmargin=!,
+}
+\setlist[itemize]{
+    topsep=0pt,
+    itemsep=0pt,
+    partopsep=0pt,
+    parsep=\parskip,
+    labelindent=1.4em,
+    labelwidth=1.3em,
+    labelsep = .3em,
+    itemindent=3em,
+    leftmargin=!,
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% hyperref settings
 %% 超链接设定
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,6 +97,36 @@
   urlcolor={black}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 交叉引用增强宏包(需在hyperref后引入)
+%% \autoref命令
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage[nameinlink]{cleveref}
+% 设置\cref章节引用格式
+\crefformat{section}{第~#2#1#3~节}
+\crefrangeformat{section}{第~#3#1#4~-~#5#2#6~节}
+\crefformat{subsection}{第~#2#1#3~小节}
+\crefrangeformat{subsection}{第~#3#1#4~-~#5#2#6~小节}
+\crefformat{subsubsection}{第~#2#1#3~项}
+\crefrangeformat{subsubsection}{第~#3#1#4~-~#5#2#6~项}
+\crefname{table}{表}{表}
+\creflabelformat{table}{#2#1#3~}
+\crefrangelabelformat{table}{#3#1#4~-~#5#2#6~}
+\crefname{figure}{图}{图}
+\creflabelformat{figure}{#2#1#3~}
+\crefrangelabelformat{figure}{#3#1#4~-~#5#2#6~}
+\crefname{equation}{式}{式}
+\creflabelformat{equation}{(#2#1#3)~}
+\crefrangelabelformat{equation}{(#3#1#4)~-~(#5#2#6)~}
+\crefrangeformat{equation}{公式~(#3#1#4) 至~(#5#2#6)}
+\crefmultiformat{equation}{公式~(#2#1#3)}{ 和~(#2#1#3)}{, (#2#1#3)}{ 和~(#2#1#3)}
+% 处理代码交叉引用格式
+\renewcommand{\thecvcounter}{\thechapter.\arabic{cvcounter}}
+\crefname{cvcounter}{代码}{代码列表}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 书签宏包
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[open,openlevel=0,atend]{bookmark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -78,13 +157,6 @@
   footskip=12mm,
   heightrounded,
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% titlesec
-%% 标题设定
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage{titlesec}
-\RequirePackage{zhnumber}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 排版摘要
@@ -122,20 +194,20 @@
 \nwafu@define@list{keywords}{\nwafu@label@keywordsep}
 
 % 关键字处理
-\newbox\nwafu@kw
-\newcommand{\nwafu@put@kw}[2]{%
-  \begingroup
-  \setbox\nwafu@kw=\hbox{#1}
-  \noindent\hangindent\wd\nwafu@kw\hangafter1
-  \box\nwafu@kw#2\par
-  \endgroup
-}
+%\newbox\nwafu@kw
+%\newcommand{\nwafu@put@kw}[2]{%
+%  \begingroup
+%  \setbox\nwafu@kw=\hbox{#1}
+%  \noindent\hangindent\wd\nwafu@kw\hangafter1
+%  \box\nwafu@kw#2\par
+%  \endgroup
+%}
 % 排版中文摘要
 \newcommand\nwafu@make@abstract@cn{
   \noindent\rule{\textwidth}{.5pt}\\%[1ex]
   \begingroup    
     \setlength\parindent{2\ccwd}\songti\indent
-    {\heiti\zihao{-4} \makebox[\widthof{\nwafu@label@keywords}][s]{\nwafu@label@abstract}：}
+    {\heiti\zihao{-4} \makebox[\widthof{\nwafu@label@keywords}][s]{\nwafu@label@abstract}:}
     {\songti\zihao{5}\nwafu@abstract}
   \endgroup
 
@@ -143,50 +215,83 @@
 
   \begingroup
     \setlength\parindent{2\ccwd}\songti\indent
-    {\heiti\zihao{-4} \nwafu@label@keywords{}：}
+    {\heiti\zihao{-4} \nwafu@label@keywords{}:}
     {\songti\zihao{5}\nwafu@keywords}
     %\nwafu@put@kw{\heiti\zihao{-4}\nwafu@label@keywords{}：}{\songti\zihao{5}\nwafu@keywords}    
   \endgroup\\[-1ex]
   \rule{\textwidth}{.5pt}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% titlesec
+%% 标题设定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \RequirePackage{titlesec}
+\ctexset{
+  section = {
+    format+ = \zihao{4} \heiti \raggedright,
+    name = {,、},
+    number = \chinese{section},
+    beforeskip = 1.0ex plus 0.2ex minus .2ex,
+    afterskip = 1.0ex plus 0.2ex minus .2ex,
+    aftername = \hspace{0pt}
+  },
+  subsection = {
+    format+ = \zihao{-4} \heiti \raggedright,
+    % name={\thesubsection、},
+    %name = {,、},
+    %number = \arabic{subsection},
+    beforeskip = 1.0ex plus 0.2ex minus .2ex,
+    afterskip = 1.0ex plus 0.2ex minus .2ex,
+    aftername = \hspace{0.5\ccwd},
+    %indent=2\ccwd,%
+  },
+  subsubsection = {
+    name={,.},%
+    number=\arabic{subsubsection},%
+    format+ = \zihao{-4} \heiti,
+    beforeskip = 1.0ex plus 0.2ex minus .2ex,
+    afterskip = 1.0ex plus 0.2ex minus .2ex,
+    aftername = \hspace{0.5\ccwd},
+    indent=2\ccwd,%
+  }
+}
 %\renewenvironment{abstract}{\noindent\rule{\textwidth}{.5pt}\\[2ex] \centering\begin{minipage}{.97\textwidth}{\zihao{-4}\sffamily\bfseries\abstractname}\\}
 %{\par\noindent\end{minipage}\\[2ex] \rule{\textwidth}{.5pt}}
 
-%% section
-\titleformat{\section}
-[hang]
-{\sffamily}
-{\centering\zihao{4}\bfseries \chinese{section}、}%\thesection
-{1pt}
-{\zihao{4}\bfseries}
+% %% section
+% \titleformat{\section}
+% [hang]
+% {\sffamily}
+% {\centering\zihao{4}\bfseries \chinese{section}、}%\thesection
+% {1pt}
+% {\zihao{4}\bfseries}
 
-%% subsection
-\titleformat{\subsection}
-[hang]
-{\sffamily}
-{\zihao{4}\bfseries\thesubsection\enspace}
-{1pt}
-{\zihao{4}\bfseries\filright}
+% %% subsection
+% \titleformat{\subsection}
+% [hang]
+% {\sffamily}
+% {\zihao{4}\bfseries\thesubsection\enspace}
+% {1pt}
+% {\zihao{4}\bfseries\filright}
 
-%% subsubsection
-\titleformat{\subsubsection}
-[hang]
-{\sffamily}
-{\zihao{-4}\bfseries\thesubsubsection\enspace}
-{1pt}
-{\zihao{-4}\bfseries\filright}
+% %% subsubsection
+% \titleformat{\subsubsection}
+% [hang]
+% {\sffamily}
+% {\zihao{-4}\bfseries\thesubsubsection\enspace}
+% {1pt}
+% {\zihao{-4}\bfseries\filright}
 
-\titlespacing{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1.3ex plus .2ex}
-\titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
-\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+% \titlespacing{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1.3ex plus .2ex}
+% \titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
+% \titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% head and foot
 %% 页眉页脚
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{fancyhdr}
-\RequirePackage{zhnumber}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -196,7 +301,7 @@
 
 \renewcommand{\sectionmark}[1]{\markright{#1}}
 
-\fancyhead[L]{\kaishu{\rightmark}}
+\fancyhead[L]{\kaishu{\rightmark}}%\rightmark
 \fancyhead[R]{\thepage}
 
 % 中文行距调整
