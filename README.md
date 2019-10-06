@@ -7,9 +7,11 @@ Happy LaTeXing!~
 
 1. 本文档要求 TeXLive、MacTeX、MikTeX 不低于 2018 年的发行版，并且尽可能升级到最新，强烈建议使用TeXLive2019。
 
+2. 使用说明见：**main.pdf**。
+
 2. **不支持** [CTeX 套装](http://www.ctex.org/CTeXDownload)。
 
-##主要功能
+## 主要功能
 - 方便科技类或IT类课程论文排版；
 - 定制摘要、关键词、各级节标题、表格、页眉页脚等样式；
 - 使用自己开发的[boxie.sty宏包](https://github.com/registor/boxiesty)实现终端窗口模拟、各类代码文本框和“注意”、“重要”、“技巧”和“警告”等文本框；
