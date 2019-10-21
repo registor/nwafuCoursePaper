@@ -55,7 +55,7 @@
 查看其使用说明书。例如，可以用\cref{texcode01}排版\autoref{sharefig:a}。
 
 \begin{center}
-\begin{minipage}{0.62\linewidth}
+\begin{minipage}{0.95\linewidth}
 \begin{langCVOne}[tex][texcode01][\LaTeX{}]{排版单一插图浮动体}
   \begin{figure}[!htp]
     \begin{floatrow}
@@ -66,12 +66,14 @@
   \end{figure}
 \end{langCVOne}
 \end{minipage}
-\begin{minipage}{0.3\linewidth}
-    \ffigbox[\FBwidth]{
-      \includegraphics[width=0.8\textwidth]{example-image-a}
-    }{\caption{一个插图}\label{sharefig:a}}
-\end{minipage}
 \end{center}
+
+%\begin{minipage}{0.3\linewidth}
+\ffigbox[\FBwidth]{
+  \includegraphics[width=0.75\textwidth]{example-image-a}
+}{\caption{一个插图}\label{sharefig:a}}
+%\end{minipage}
+
 
 当然，也可以用\cref{texcode02}排版\autoref{trifig}。  
 
@@ -355,7 +357,44 @@ tikz-imagelabels完全一致，请在命令行使用\enquote{texdoc tikz-imagela
 \item[举头望明月]，举头望明月，举头望明月，举头望明月，举头望明月，举头望明月，举头望明月。
 \item[低头思故乡]，低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡，低头思故乡。
 \end{description}
+\section{排版表格}
 
+用\cref{texcodetab}可编制\autoref{tab:testsample}所示的表格。
+
+\begin{center}
+  \begin{langCVOne}[tex][texcodetab][\LaTeX{}]{表格排版}
+    \begin{table}[!htp]
+      \ttabbox[\FBwidth]{
+        \begin{tabular}{ccl}
+          \toprule
+          序号 & 测试用例 & \multicolumn{1}{c}{测试目的}\\
+          \midrule
+          1 & a & 小写字母到大写字母转换\\
+          2 & A & 大写字母到小写字母转换\\
+          3 & @ & 非字母字符测试\\
+          4 & 2 & 非字母其它字符\\
+          \bottomrule
+        \end{tabular}
+      }{\caption{字母大小写转换测试用例表}\label{tab:testsample}}
+    \end{table}
+  \end{langCVOne}
+\end{center}
+
+
+\begin{table}[!htp]
+  \ttabbox[\FBwidth]{
+    \begin{tabular}{ccl}
+      \toprule
+      序号 & 测试用例 & \multicolumn{1}{c}{测试目的}\\
+      \midrule
+      1 & a & 小写字母到大写字母转换\\
+      2 & A & 大写字母到小写字母转换\\
+      3 & @ & 非字母字符测试\\
+      4 & 2 & 非字母其它字符\\
+      \bottomrule      
+    \end{tabular}
+  }{\caption{字母大小写转换测试用例表}\label{tab:testsample}}
+\end{table}
 \section{\enquote{emph}强调字体}
 在\enquote{nwafucoursepaper.cls}模板中，重定义强调字体，将默认强调字体
 是italic，中文用楷体代替操作更换为加粗操作，用加粗后的字体表示强调。

@@ -6,7 +6,13 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{nwafucoursepaper}[October, 2019 LaTeX cls for NWAFU Course Papers]
-\LoadClass[a4paper,zihao=-4,scheme = chinese]{ctexart}
+\RequirePackage{kvoptions}
+\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexart}}
+\ProcessKeyvalOptions*
+\PassOptionsToClass{zihao=-4}{ctexart}%,linespread=1.3889
+\PassOptionsToClass{a4paper,scheme=chinese,space=auto,UTF8}{ctexart}
+\LoadClass{ctexart}
+%\LoadClass[a4paper,zihao=-4,scheme = chinese]{ctexart}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 其它需要的宏包
@@ -35,20 +41,30 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% captions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage[labelsep=quad]{caption}
-\DeclareCaptionFont{kai}{\kaishu}
-\captionsetup[table]{belowskip=0pt,aboveskip=5pt,labelfont=kai,textfont=kai}
-\captionsetup[figure]{belowskip=0pt,aboveskip=5pt,format=hang,labelfont=kai,textfont=kai}
+%\RequirePackage[labelsep=quad]{caption}
+%\DeclareCaptionFont{kai}{\kaishu}
+%\captionsetup[table]{belowskip=0pt,aboveskip=5pt,labelfont=kai,textfont=kai}
+%\captionsetup[figure]{belowskip=0pt,aboveskip=5pt,format=hang,labelfont=kai,textfont=kai}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 浮动体增强宏包
 %% 由于与minted宏包冲突，需要在boxie前载入
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{floatrow}
-\floatsetup[table]{objectset=centering, margins=centering}
-\floatsetup[figure]{objectset=centering, margins=centering}
-%\RequirePackage[verbose]{wrapfig}
 \RequirePackage{subfig}
+% 设置浮动体属性
+\DeclareFloatVCode{beforefig}{\vspace{-4pt}}
+\DeclareFloatVCode{beforetab}{\vspace{-6pt}}
+\DeclareFloatVCode{afterfloat}{\vspace{4pt}}
+\floatsetup{postcode=afterfloat}
+\floatsetup[table]{captionskip=2pt, objectset=centering, margins=centering, precode=beforetab}
+\floatsetup[figure]{captionskip=4pt, objectset=centering, margins=centering, precode=beforefig}
+
+% 标题设置
+\DeclareCaptionLabelSeparator{labsep}{\hspace{0.5em}}
+\DeclareCaptionFont{hei}{\bfseries\heiti}
+\captionsetup[table]{labelsep=labsep, belowskip=0pt,aboveskip=5pt,labelfont=hei,textfont=hei}
+\captionsetup[figure]{labelsep=labsep, belowskip=0pt,aboveskip=5pt,format=hang,labelfont=hei,textfont=hei}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 命令行窗口及代码排版(自己开发的宏包)

@@ -19,6 +19,9 @@ Happy LaTeXing!~
 - 使用改造于`tikz-imagelabels`宏包的`tikz-imglabels`宏包实现插图的注解；
 - 使用`floatrow`宏包控制图表浮动体；
 
+## 注意
+- 由于boxie.sty宏包需要使用fvextra.sty和lstlinebgrd.sty两个宏包处理间隔显示代码行颜色，请确保当前路径下有这两个宏包存在。
+
 ## 反馈
 如果发现代码有问题，请按照以下步骤操作：
 
